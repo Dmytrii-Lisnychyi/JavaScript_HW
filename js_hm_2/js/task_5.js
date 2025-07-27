@@ -1,7 +1,7 @@
 let seconds = parseInt(prompt('Введіть кількість секунд', '0'))
 
-const hour = seconds / 60^2
 const minute = seconds / 60
+const hour = minute / 60
 
 document.write(
 	`
