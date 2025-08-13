@@ -23,15 +23,16 @@ if (confirm('Почати тестування?')) {
 		return over100
 	}
 
-	const userNum1 = parseInt(prompt(`Введіть номер`, '11'))
-	const userNum2 = parseInt(prompt(`Введіть номер`, '112'))
-	const userNum3 = parseInt(prompt(`Введіть номер`, '22'))
+	const userNum1 = parseInt(prompt(`Введіть число`))
+	const userNum2 = parseInt(prompt(`Введіть число`))
+	const userNum3 = parseInt(prompt(`Введіть число`))
 
 	const evenNumbers = getEvenNumbers(userNum1, userNum2, userNum3)
 	const positiveNumbers = getPositiveNumbers(userNum1, userNum2, userNum3)
 	const Over100Numbers = getOver100Numbers(userNum1, userNum2, userNum3)
 
-	document.write(`Парних: ${evenNumbers}<br>
+	document.write(`Число №1:${userNum1} Число №2:${userNum2} Число №3:${userNum3}<br>
+		Парних: ${evenNumbers}<br>
 	Додатніх: ${positiveNumbers}<br>
 Більших за 100: ${Over100Numbers}
 `)
