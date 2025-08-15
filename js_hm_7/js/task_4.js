@@ -14,6 +14,20 @@ if (confirm('Почати тестування?')) {
 		return miles
 	}
 
+	const getResult = () => {
+		let result
+
+		switch (userAnswear) {
+			case 1: result = `${userNumber} cm = ${inch} inch!`
+				break;
+			case 2: result = `${userNumber} kg = ${pound} pound!`
+				break;
+			case 3: result = `${userNumber} km = ${miles} miles!`
+				break;
+		}
+		return result
+	}
+
 
 	const userAnswear = parseInt(prompt('Що ви хочете обчислити?\n1) Сантиметри в дюйми.\n2) Кілограми в фунти.\n3) Кілометри в милі.'))
 
@@ -23,18 +37,16 @@ if (confirm('Почати тестування?')) {
 
 	const userNumber = parseFloat(prompt('Введіть значення'))
 
-
-
-	let result
-
-	switch (userAnswear) {
-		case 1: result = `Це ${convertCentimetersToInches(userNumber).toFixed(2)} дюймів!`
-			break;
-		case 2: result = `Це ${convertKilogramsToPounds(userNumber).toFixed(2)} фунтів!`
-			break;
-		case 3: result = `Це ${convertKilometersToMiles(userNumber).toFixed(2)} миль!`
-			break;
+	if (isNaN(userNumber) || userNumber <= 0) {
+		alert('Невірне значення')
+		throw new Error("Невірне значення");
 	}
 
-	document.write(result)
+	const inch = convertCentimetersToInches(userNumber).toFixed(2)
+	const pound = convertKilogramsToPounds(userNumber).toFixed(2)
+	const miles = convertKilometersToMiles(userNumber).toFixed(2)
+
+	document.write(`
+			<div style = "display: inline-block; padding:5px 10px; margin: 50px 0 50px 0;font-size: 50px; font-weight: 600; border: 5px solid orange;">${getResult()}</div>
+		`)
 }
