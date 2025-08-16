@@ -12,7 +12,7 @@ if (confirm('Почати тестування?')) {
 				break;
 			case 4: dayArr = 'Четвер'
 				break;
-			case 5: dayArr = 'П\'яттниця'
+			case 5: dayArr = 'П\'ятниця'
 				break;
 			case 6: dayArr = 'Субота'
 				break;
@@ -42,7 +42,11 @@ if (confirm('Почати тестування?')) {
 		const visitorsNumberWeek = []
 		for (let i = 1; i <= 7; i++) {
 			const visitorsNumber = parseInt(prompt(`Ведіть кількість відвідувачів за ${i} день`))
-			visitorsNumberWeek.push(visitorsNumber)
+			if(isNaN(visitorsNumber) || visitorsNumber < 0) 
+				{alert('Не правильне значення!')
+				i--
+			}
+			else visitorsNumberWeek.push(visitorsNumber)
 		}
 		return visitorsNumberWeek
 	}
@@ -107,11 +111,11 @@ if (confirm('Почати тестування?')) {
 
 
 	document.write(`Менше 20 в такі дні: ${less20} (${getWeekDaysNameList(less20)})<br>
-		Мінімум був в ${min}-й день (${getWeekDaysNameList(min)})<br>
-		Максимум був в ${max}-й день (${getWeekDaysNameList(max)})<br>
-		Сума покупців у будні дні ${sumWeekDays}
+		Мінімум був в ${min}-й день: (${getWeekDaysNameList(min)})<br>
+		Максимум був в ${max}-й день: (${getWeekDaysNameList(max)})<br>
+		Сума покупців у будні дні: ${sumWeekDays}
 		<br>
-		Сума покупців у вихідні дні ${sumWeekEnd}
+		Сума покупців у вихідні дні: ${sumWeekEnd}
 		`)
 
 }
