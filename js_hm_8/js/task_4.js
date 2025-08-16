@@ -1,52 +1,77 @@
 if (confirm('Почати тестування?')) {
-	function convertCentimetersToInches(centimeters) {
-		let inches = centimeters * 0.393701
-		return inches
+
+	function getRandomNum(min, max) {
+		return min + Math.floor(Math.random() * (max - min + 1))
 	}
 
-	function convertKilogramsToPounds(kilograms) {
-		let pounds = kilograms * 2.20462
-		return pounds
-	}
-
-	function convertKilometersToMiles(kilometers) {
-		let miles = kilometers * 0.621371
-		return miles
-	}
-
-	const getResult = () => {
-		let result
-
-		switch (userAnswear) {
-			case 1: result = `${userNumber} cm = ${inch} inch!`
-				break;
-			case 2: result = `${userNumber} kg = ${pound} pound!`
-				break;
-			case 3: result = `${userNumber} km = ${miles} miles!`
-				break;
+	function getCellList(cellsNum) {
+		let arr = []
+		for (let i = 0; i < cellsNum; i++) {
+			arr.push(0)
 		}
-		return result
+		return arr
 	}
 
+	function getShips(userShipsNum, userCellsNum, cellArr) {
+		let shipsNum = 0
+		while (shipsNum < userShipsNum) {
+			let random = getRandomNum(0, userCellsNum - 1)
 
-	const userAnswear = parseInt(prompt('Що ви хочете обчислити?\n1) Сантиметри в дюйми.\n2) Кілограми в фунти.\n3) Кілометри в милі.'))
-
-	if (userAnswear < 1 || userAnswear > 3 || isNaN(userAnswear)) {
-		throw new Error("Немає такого варіанту");
+			if (cellArr[random] === 0) {
+				cellArr[random] = 1
+				shipsNum++
+			}
+		}
+		return cellArr
 	}
 
-	const userNumber = parseFloat(prompt('Введіть значення'))
+	const userInputCells = parseInt(prompt('Введіть кількість клітинок'))
+	const userInputShips = parseInt(prompt('Введіть кількість кораблів'))
+	if (
+		!isNaN(userInputCells) &&
+		!isNaN(userInputShips) &&
+		userInputCells > 0 &&
+		userInputShips > 0 &&
+		userInputCells >= userInputShips
+	) {
+		alert('Почнемо гру')
 
-	if (isNaN(userNumber) || userNumber <= 0) {
-		alert('Невірне значення')
-		throw new Error("Невірне значення");
+		const cellList = getCellList(userInputCells)
+		const ships = getShips(userInputShips, userInputCells, cellList)
+
+		function getUserResultShots(arr) {
+			while (arr.includes(1)) {
+				const arrLength = arr.length
+				const userShot = parseInt(prompt(`Введіть клітинку для пострілу (1 - ${arrLength})`))
+
+				if (isNaN(userShot)) {
+					alert('Ви ввели не число!')
+					continue
+				}
+				if (userShot <= 0 || userShot > arrLength) {
+					alert(`Невірне число! Введіть від 1 до ${arrLength}`)
+					continue
+				}
+
+				if (arr[userShot - 1] === -1) {
+					alert('Ви вже стріляли в цю клітинку!')
+					continue
+				}
+
+				if (arr[userShot - 1] === 1) {
+					alert('Влучили!')
+					arr[userShot - 1] = -1
+				} else {
+					alert('Мимо!')
+					arr[userShot - 1] = -1
+				}
+			}
+			alert('Ви потопили всі кораблі. Гру завершено')
+			return arr
+		}
+
+		getUserResultShots(ships)
+	} else {
+		alert('Неправильні дані! Кількість клітинок має бути більше кількості кораблів і обидва числа більше 0')
 	}
-
-	const inch = convertCentimetersToInches(userNumber).toFixed(2)
-	const pound = convertKilogramsToPounds(userNumber).toFixed(2)
-	const miles = convertKilometersToMiles(userNumber).toFixed(2)
-
-	document.write(`
-			<div style = "display: inline-block; padding:5px 10px; margin: 50px 0 50px 0;font-size: 50px; font-weight: 600; border: 5px solid orange;">${getResult()}</div>
-		`)
 }
