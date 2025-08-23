@@ -136,5 +136,13 @@ body {
 				color: #ad0000;
 			}
 		}
+		>ol{
+				display: flex;
+				flex-direction: column;
+				gap: toRem(10);
+
+				font-size: toRem(20);
+				color: #575757;
+			}
 	}
 }
