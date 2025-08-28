@@ -161,6 +161,4 @@ if (confirm('Почати тестування?')) {
 			</div>
 		</div>
 		`)
-	const res = 3 % 2
-	console.log(res);
 }
