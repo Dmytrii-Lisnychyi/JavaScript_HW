@@ -10,7 +10,7 @@ if (confirm('Почати тестування?')) {
 		let prizeArr = []
 		let sumPrize = 0
 		do {
-			let randomNum = getRandom(minValue, maxValue) // генеруємо нове число
+			let randomNum = getRandom(minValue, maxValue)
 			prizeArr.push(randomNum)
 			sumPrize += randomNum
 		} while (sumPrize < totalPrize)
