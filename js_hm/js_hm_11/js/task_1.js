@@ -1,15 +1,39 @@
 if (confirm('Почати тестування?')) {
-	const userItemsNumber = parseFloat(prompt(`Введіть кількість елементів`, '10'))
+	const getRandomRow = (elCount, min, max) =>
+		Array.from(
+			{ length: elCount },
+			() => min + Math.floor(Math.random() * (max - min + 1))
+		)
 
-	document.write(`<div style="margin-bottom:5px; font-size:40px; color: #00000;">
-		Кількість елементів: ${userItemsNumber}<br>
-		</div>
-	`);
-	
-	const firstHalf = Math.floor(userItemsNumber / 2);
+	const getRandMatrix = (rowCount, colCount, min, max) =>
+		Array.from({ length: rowCount }, () => getRandomRow(colCount, min, max))
 
-	const array = new Array(userItemsNumber).fill(1,0,firstHalf).fill(7,firstHalf)
-	document.write(`<div style="margin-bottom:20px; font-size:50px; color: #740000;">
-			[${array}]<br>
-		</div>`);
+	const randMatrix = getRandMatrix(4, 7, 500, 2000)
+
+	console.log(randMatrix);
+
+	document.write(`<h2 style="color: #740000;">
+		1)З агальний прибуток кожного масиву за тиждень 
+		</h2>`)
+
+	randMatrix.forEach((shops, index) => {
+		let profit = 0
+		for (const el of shops) {
+			profit += el
+		}
+		document.write(`
+			<div>Магазин №${index + 1} заробив ${profit}грн</div><br>`)
+	})
+
+
+	document.write(`<h2 style="color: #740000;">
+		1)Загальний прибуток за кожен день всіх магазинів
+		</h2>`)
+
+		for (let i = 0; i < randMatrix.length; i++) {
+			
+		}
+		document.write(`
+			<div>Магазин №${index + 1} заробив ${profit}грн</div><br>`)
+
 }

@@ -23,13 +23,24 @@ if (confirm('Почати тестування?')) {
 			sum += randMatrix[rowIndex][colIndex]
 		}
 	}
+
+
+
+	let sum1 = 0
+	for (let rowIndex = 0; rowIndex < halfRow; rowIndex++) {
+		const halfCol = Math.floor(randMatrix[rowIndex].length / 2)
+		for (let colIndex = halfCol; colIndex < randMatrix[rowIndex].length; colIndex++) {
+			sum2 += randMatrix[rowIndex][colIndex]
+		}
+	}
+
 	document.write(`
 		<div">
 			<p style="font-size:30px;">
 			1) Номери рядків від 0 до половини, стовпці від 0 до половини
 			</p>
 			<div style="font-size:30px; color: #740000;">
-				Сума: [${sum}]<br>
+				Сума: [${sum1}]<br>
 			</div>
 		</div>
 		`)
