@@ -6,44 +6,46 @@ if (confirm('Почати тестування?')) {
 		)
 
 	const getRandMatrix = (rowCount, colCount, min, max) =>
-		Array.from({ length: rowCount }, () => getRandomRow(colCount, min, max))
+		Array.from(
+			{ length: rowCount },
+			() => getRandomRow(colCount, min, max)
+		)
 
-	const randMatrix = getRandMatrix(4, 4, 1, 5)
+	const randMatrix = getRandMatrix(6, 6, 1, 10)
+
+	for (const row of randMatrix) {
+		document.write(`<div>
+				<span>[</span>${row.join('_')}<span>]</span><br>
+				</div>
+				`);
+	}
 
 	console.log(randMatrix);
 
-	document.write(`<div style="margin-bottom:20px; font-size:50px; color: #740000;">
-			[]
-		</div>`)
+
+	//1) Номери рядків від 0 до половини, стовпці від 0 до половини
 
 	const halfRow = Math.floor(randMatrix.length / 2)
 	let sum = 0
 	for (let rowIndex = 0; rowIndex < halfRow; rowIndex++) {
-		for (let colIndex = 0; colIndex < randMatrix[rowIndex].length / 2; colIndex++) {
-			sum += randMatrix[rowIndex][colIndex]
-		}
-	}
-
-
-
-	let sum1 = 0
-	for (let rowIndex = 0; rowIndex < halfRow; rowIndex++) {
 		const halfCol = Math.floor(randMatrix[rowIndex].length / 2)
-		for (let colIndex = halfCol; colIndex < randMatrix[rowIndex].length; colIndex++) {
-			sum2 += randMatrix[rowIndex][colIndex]
+		for (let colIndex = 0; colIndex < halfCol; colIndex++) {
+			sum += randMatrix[rowIndex][colIndex]
+			document.write(`[${randMatrix[rowIndex][colIndex]}]`);
 		}
 	}
 
-	document.write(`
-		<div">
-			<p style="font-size:30px;">
-			1) Номери рядків від 0 до половини, стовпці від 0 до половини
-			</p>
-			<div style="font-size:30px; color: #740000;">
-				Сума: [${sum1}]<br>
-			</div>
-		</div>
-		`)
+	// const sum = randMatrix
+	// 	.flatMap((row, rowIndex, baseArrRef) =>
+	// 		rowIndex < baseArrRef.length / 2 ? row.slice(0, row.length / 2) : []
+	// 	)
+	// 	.reduce((a, b) => a + b, 0)
+
+	document.write(`Sum1 = ${sum}<br>`);
+
+	//=====================================================================
+
+	//2) Номери рядків від 0 до половини, стовпці від половини до кінця
 
 
 	let sum2 = 0
@@ -51,125 +53,94 @@ if (confirm('Почати тестування?')) {
 		const halfCol = Math.floor(randMatrix[rowIndex].length / 2)
 		for (let colIndex = halfCol; colIndex < randMatrix[rowIndex].length; colIndex++) {
 			sum2 += randMatrix[rowIndex][colIndex]
+			document.write(`[${randMatrix[rowIndex][colIndex]}]`);
 		}
 	}
-	document.write(`
-		<div">
-			<p style="font-size:30px;">
-			2) Номери рядків від 0 до половини, стовпці від половини до кінця
-			</p>
-			<div style="font-size:30px; color: #740000;">
-				Сума: [${sum2}]<br>
-			</div>
-		</div>
-		`)
+
+	// const sum2 = randMatrix
+	// 	.flatMap((row, rowIndex, baseArrRef) =>
+	// 		rowIndex < baseArrRef.length / 2 ? row.slice(row.length / 2, row.length) : []
+	// 	)
+	// 	.reduce((a, b) => a + b, 0)
+
+	document.write(`Sum2 = ${sum2}<br>`);
+
+	//=====================================================================
+
+	//3) Номери рядків (від половини до кінця, стовпці від 0 до половини
 
 
 	let sum3 = 0
 	for (let rowIndex = halfRow; rowIndex < randMatrix.length; rowIndex++) {
-		const row = randMatrix[rowIndex]
-		sum3 += row.slice(0, Math.floor(row.length / 2))
-			.reduce((prevSum, currentEl) => prevSum + currentEl, 0)
+		const halfCol = Math.floor(randMatrix[rowIndex].length / 2)
+		for (let colIndex = 0; colIndex < halfCol; colIndex++) {
+			sum3 += randMatrix[rowIndex][colIndex]
+			document.write(`[${randMatrix[rowIndex][colIndex]}]`);
+		}
 	}
+	document.write(`Sum3 = ${sum3}<br>`);
 
-	document.write(`
-		<div">
-			<p style="font-size:30px;">
-			3) Номери рядків від половини до кінця, стовпці від 0 до половини
-			</p>
-			<div style="font-size:30px; color: #740000;">
-				Сума: [${sum3}]<br>
-			</div>
-		</div>
-		`)
+	//=====================================================================
+
+	//4) Номери рядків від половини до кінця , стовпці від половини до кінця
 
 	let sum4 = 0
 	for (let rowIndex = halfRow; rowIndex < randMatrix.length; rowIndex++) {
-		const row = randMatrix[rowIndex]
-		sum4 += row.slice(Math.floor(row.length / 2))
-			.reduce((prevSum, currentEl) => prevSum + currentEl, 0)
+		const halfCol = Math.floor(randMatrix[rowIndex].length / 2)
+		for (let colIndex = halfCol; colIndex < randMatrix[rowIndex].length; colIndex++) {
+			sum4 += randMatrix[rowIndex][colIndex]
+			document.write(`[${randMatrix[rowIndex][colIndex]}]`);
+		}
 	}
+	document.write(`Sum4 = ${sum4}<br>`);
 
-	document.write(`
-		<div">
-			<p style="font-size:30px;">
-			4) Номери рядків від половини до кінця, стовпці від половини до кінця
-			</p>
-			<div style="font-size:30px; color: #740000;">
-				Сума: [${sum4}]<br>
-			</div>
-		</div>
-		`)
+	//=====================================================================
 
-	// let sum5 = 0
-	// for (let i = 0; i < randMatrix.length; i++) {
-	// 	if (i % 2 !== 0) sum5 += randMatrix[i].reduce((prevSum, currNum) => prevSum + currNum,0)
-	// }
+	//5) Суму парних рядків
 
-	const even = randMatrix
+
+	const sumEven = randMatrix
 		.filter((_, i) => i % 2 !== 0)
 		.flat()
-		.reduce((a, b) => a + b, 0);
+		.reduce((a, b) => a + b)
+	document.write(`sumEven = ${sumEven}<br>`);
 
-	document.write(`
-		<div">
-			<p style="font-size:30px;">
-			5) Сума парних рядків
-			</p>
-			<div style="font-size:30px; color: #740000;">
-				Сума: [${even}]<br>
-			</div>
-		</div>
-		`)
+	//=====================================================================
 
-	const odd = randMatrix
+	//6) Суму непарних стовпців
+
+	const sumOdd = randMatrix
 		.filter((_, i) => i % 2 === 0)
 		.flat()
-		.reduce((a, b) => a + b, 0);
+		.reduce((a, b) => a + b)
+	document.write(`sumOdd = ${sumOdd}<br>`);
 
-	document.write(`
-		<div">
-			<p style="font-size:30px;">
-			5) Сума непарних рядків
-			</p>
-			<div style="font-size:30px; color: #740000;">
-				Сума: [${odd}]<br>
-			</div>
-		</div>
-		`)
-	let result = 0
-	for (let i = 0; i < randMatrix.length; i++) {
-		let evenRowOddCol = 0
-		let oddRowEvenCol = 0
-		if (i % 2 !== 0) {
-			evenRowOddCol = randMatrix[i]
-				.filter((_, i) => i % 2 === 0)
-				.reduce((a, b) => a + b, 0)
+
+	//=====================================================================
+
+	//6) У парних рядках – непарні стовпці, у непарних – парні
+
+	let sumRowEvenColOdd = 0
+	for (let rowIndex = 0; rowIndex < randMatrix.length; rowIndex++) {
+		const row = randMatrix[rowIndex]
+		if (rowIndex % 2 === 0) {
+			for (let colIndex = 0; colIndex < row.length; colIndex++) {
+				if (colIndex % 2 !== 0) sumRowEvenColOdd += row[colIndex]
+			}
+		} else {
+			for (let colIndex = 0; colIndex < row.length; colIndex++) {
+				if (colIndex % 2 === 0) sumRowEvenColOdd += row[colIndex]
+			}
 		}
-		if (i % 2 === 0) {
-			oddRowEvenCol = randMatrix[i]
-				.filter((_, i) => i % 2 !== 0)
-				.reduce((a, b) => a + b, 0)
-		}
-		result += evenRowOddCol + oddRowEvenCol
 	}
 
-	// const result = randMatrix
-	// 	.flatMap((row, i) =>
-	// 		i % 2 === 0
-	// 			? row.filter((_, j) => j % 2 !== 0)   // парний рядок → непарні стовпці
-	// 			: row.filter((_, j) => j % 2 === 0)   // непарний рядок → парні стовпці
+	// const sumRowEvenColOdd = randMatrix
+	// 	.map((row, rowIndex) =>
+	// 		row.filter((_, colIndex) =>
+	// 			rowIndex % 2 === 0 ? colIndex % 2 !== 0 : colIndex % 2 === 0)
 	// 	)
-	// 	.reduce((sum, num) => sum + num, 0);
+	// 	.flat()
+	// 	.reduce((a, b) => a + b, 0)
 
-	document.write(`
-		<div">
-			<p style="font-size:30px;">
-			5) Сума у парних рядках непарних 
-			</p>
-			<div style="font-size:30px; color: #740000;">
-				Сума: [${result}]<br>
-			</div>
-		</div>
-		`)
+	document.write(`sumRowEvenColOdd = ${sumRowEvenColOdd}<br>`);
 }
