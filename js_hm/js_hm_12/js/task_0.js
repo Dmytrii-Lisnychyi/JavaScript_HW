@@ -125,6 +125,6 @@ if (confirm('Почати тестування?')) {
             if (day === 'Неділя')
                 sundayNumber++;
         }
-        document.write(`Кількість Неділь за ${rowIndex + 1} день: ${sundayNumber}<br>`);
+        document.write(`Кількість Неділь в ${rowIndex + 1} рядку: ${sundayNumber}<br>`);
     }
 }
